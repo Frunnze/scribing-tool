@@ -14,8 +14,14 @@
 
 
 ## Technical Decisions & Trade-Oﬀs
-- Used tech stack: React, Flask, websockets, redis
+- Used tech stack: React, Flask, redis, websockets, REST APIs (for save, delete transcript)
 
+- This app uses audio chunking in front
+    - Full audio processing: better accuracy, but slower, and not interactive;
+    - Audio chunking: interactive, and faster, but with worse transcription accuracy
+- This app uses websockets
+    - REST APIs: simpler to set up, but slower
+    - Websockets: faster, but more complex to implement
 
 Shield: [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
 
