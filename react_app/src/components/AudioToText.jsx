@@ -110,7 +110,9 @@ export default function AudioToText() {
 
   return (
     <div style={{ padding: '1rem', maxWidth: '600px', margin: 'auto' }}>
-      <input type="file" accept=".mp3,audio/mpeg" onChange={handleFileUpload} />
+      <label for="audioUpload">Audio file to text (only .mp3 allowed)</label>
+      <br/>
+      <input type="file" id="audioUpload" accept=".mp3,audio/mpeg" onChange={handleFileUpload} />
       <textarea
         value={transcript}
         onChange={(e) => setTranscript(e.target.value)}
