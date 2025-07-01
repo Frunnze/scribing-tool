@@ -14,8 +14,16 @@ export default function AudioToText() {
   const chunkSize = 64 * 1024;
 
   useEffect(() => {
-    socketRef.current = io('http://localhost:5000');
+    async function get_prev_transcript(params) {
+      const res = await fetch("http://localhost:5000/transcript")
+      if (!res.ok) return
+      const resData = await res.json();
+      console.log(resData.transcript);
+      setTranscript(resData.transcript);
+    };
+    get_prev_transcript();
 
+    socketRef.current = io('http://localhost:5000');
     socketRef.current.on('connect', () => {
       console.log('Socket connected:', socketRef.current.id);
     });
@@ -123,7 +131,7 @@ export default function AudioToText() {
         ref={textareaRef}
         value={transcript}
         onChange={(e) => setTranscript(e.target.value)}
-        rows={10}
+        rows={20}
         style={{
           marginTop: '1rem',
           width: '100%',

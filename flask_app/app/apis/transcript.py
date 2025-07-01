@@ -22,3 +22,12 @@ def update_transcript():
 def delete_transcript():
     redis.delete("TRANSCRIPT")
     return jsonify({"message": "Transcript deleted"})
+
+
+@transcript.route('/transcript', methods=['GET'])
+def get_transcript():
+    tr = redis.get("TRANSCRIPT")
+    print(tr)
+    if tr:
+        return jsonify({"transcript": tr.decode('utf-8')})
+    return jsonify({"msg": "Not found"}), 404
