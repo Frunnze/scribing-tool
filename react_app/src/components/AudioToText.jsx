@@ -6,7 +6,7 @@ export default function AudioToText() {
   const [transcript, setTranscript] = useState('');
   const [savedStatus, setSavedStatus] = useState('');
   const socketRef = useRef(null);
-
+  const textareaRef = useRef(null);
   const fileBufferRef = useRef(null);
   const totalChunksRef = useRef(0);
   const currentChunkRef = useRef(0);
@@ -108,12 +108,19 @@ export default function AudioToText() {
     }
   };
 
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
+    }
+  }, [transcript]);
+
   return (
     <div style={{ padding: '1rem', maxWidth: '600px', margin: 'auto' }}>
       <label for="audioUpload">Audio file to text (only .mp3 allowed)</label>
       <br/>
       <input type="file" id="audioUpload" accept=".mp3,audio/mpeg" onChange={handleFileUpload} />
       <textarea
+        ref={textareaRef}
         value={transcript}
         onChange={(e) => setTranscript(e.target.value)}
         rows={10}
